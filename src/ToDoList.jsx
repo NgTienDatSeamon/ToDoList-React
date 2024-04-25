@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 
 function TodoList() {
   const [tasks, setTasks] = useState([]);
@@ -6,16 +6,22 @@ function TodoList() {
   const [editIndex, setEditIndex] = useState(null);
   const [editedTask, setEditedTask] = useState("");
 
+
+  useEffect(() => {
+    const initialTasks = Array.from({ length: 5 }, (_, index) => `Task ${index + 1}`);
+    setTasks(initialTasks);
+    },[]);
+
   function handleInputChange(event) {
     setNewTask(event.target.value);
-  }
+    }
 
   function addTask() {
     if (newTask.trim() !== "") {
       setTasks((t) => [...t, newTask]);
       setNewTask("");
     }
-  }
+    }
 
   function deleteTask(index) {
     const updatedTasks = tasks.filter((_, i) => i !== index);
